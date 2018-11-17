@@ -6,7 +6,7 @@ def RetrFile(name, sock):
     filename = sock.recv(1024)
 
     if os.path.isfile(filename):
-        sock.send("EXISTS " + str(os.path.getsize(filename)))
+        sock.send("Exists... " + str(os.path.getsize(filename)))
         userResponse = sock.recv(1024)
         if userResponse[:2] == 'OK':
             with open(filename, 'rb') as f:
@@ -33,7 +33,7 @@ def Main():
     print "Server started NOW..."
     while True:
         c, addr = s.accept()
-        print "client connected ip:<" + str(addr) + ">"
+        print "client connected to ip:" + str(addr)
         t = threading.Thread(target = RetrFile, args = ("retrThread", c) )
         t.start()
     s.close()
